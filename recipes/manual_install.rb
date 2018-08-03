@@ -32,24 +32,13 @@ end
 #make
 execute "make redis" do
   cwd "#{Chef::Config[:file_cache_path]}/redis-stable"
-  command "touch make_all"
-  command "make all"
+  #command "touch make_all"
+  command "make all >/tmp/make.log 2>&1"
   not_if { File.exists?(redis_local)}
 end
 
-#make test
-execute "make test redis" do
-  cwd "#{Chef::Config[:file_cache_path]}/redis-stable"
-  command "touch make_test"
-  command "make test"
-  not_if { File.exists?(redis_local)}
-end
-
-
-#make install
 execute "make install redis" do
   cwd "#{Chef::Config[:file_cache_path]}/redis-stable"
-  command "touch make_install"
   command "make install"
   not_if { File.exists?(redis_local)}
 end
