@@ -32,7 +32,6 @@ end
 #make
 execute "make redis" do
   cwd "#{Chef::Config[:file_cache_path]}/redis-stable"
-  #command "touch make_all"
   command "make all >/tmp/make.log 2>&1"
   action :nothing
   notifies :run, "execute[make install redis]", :immediately

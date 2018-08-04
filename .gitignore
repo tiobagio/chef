@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 *.log
 .kitchen/*
+=======
+.kitchen
+>>>>>>> 9ac324f0d77a858806ba0f4816332e1442b6670c
