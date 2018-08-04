@@ -25,7 +25,7 @@ end
 execute "untar redis-stable.tar.gz" do
   cwd "#{Chef::Config[:file_cache_path]}"
   command "tar xvzf #{package_name}"
-
+  notifies :run, "execute[make redis]", :immediately
 end
 
 #cd redis-stable
@@ -34,12 +34,15 @@ execute "make redis" do
   cwd "#{Chef::Config[:file_cache_path]}/redis-stable"
   #command "touch make_all"
   command "make all >/tmp/make.log 2>&1"
+  action :nothing
+  notifies :run, "execute[make install redis]", :immediately
   not_if { File.exists?(redis_local)}
 end
 
 execute "make install redis" do
   cwd "#{Chef::Config[:file_cache_path]}/redis-stable"
   command "make install"
+  action :nothing
   not_if { File.exists?(redis_local)}
 end
 
